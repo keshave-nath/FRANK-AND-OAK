@@ -1,0 +1,70 @@
+.login {
+    overflow-y: scroll;
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    box-shadow: 1px 1px 0px 2px #ccc;
+}
+
+.login .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.bg-color-offwhite{
+    background-color: #f9f9f9;
+}
+
+.w-33 {
+    width: 33%;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.login .show-hide{
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+    cursor: pointer;
+}
+
+.login .show-hidee{
+    position: absolute;
+    right: 10px;
+    bottom: 34px;
+    cursor: pointer;
+}
+
+.w-35{
+    width: 35%;
+}
+
+.w-45{
+    width: 45;
+}
+
+.padding{
+    padding: 30px;
+}
+
+.login .errors{
+    color: red;
+    font-size: 14px;
+    position: absolute;
+    top: -14px;
+    left: 0;
+    line-height: 16px;
+}

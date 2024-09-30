@@ -1,0 +1,187 @@
+.bg-color {
+    background-color: #f0f0ee;
+    padding: 10px;
+}
+
+.active {
+    border-bottom: 0.5px solid black;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    /* background-color: #F2E6B1; */
+}
+
+.accordion {
+    background-color: white;
+    /* position: relative; */
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button:not(.collaspe) {
+    box-shadow: none;
+}
+
+.accordion-button {
+    background-color: white !important;
+    color: black !important;
+    padding: 16px 0px;
+    position:static;
+}
+
+.accordion-body {
+    background-color: white !important;
+    color: black !important;
+}
+
+.accordion-button::after {
+    content: '+' !important;
+}
+
+.accordion-button:not(.collaspe)::after {
+    width: 0px;
+    content: "-";
+    transform: none !important;
+}
+
+.color-blue {
+    background-color: #282D3C;
+}
+
+.color-beige {
+    background-color: #E0D6C6;
+}
+
+.color-brown {
+    background-color: #382E2D;
+}
+
+.color-purple {
+    background-color: #A9568C;
+}
+
+.color-yellow {
+    background-color: #F2E6B1;
+}
+
+/* .z-index-1 {
+    z-index: -10;
+} */
+
+.scroll {
+    height: 500px;
+    overflow-y: auto;
+    /* position: static; */
+    width: 300px;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+
+.clothing-button {
+    position: absolute;
+    width: 90%;
+    text-align: center;
+    /* border: 1px solid black; */
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    z-index: 100;
+    transition: 0.5s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.cards:hover .clothing-button {
+    visibility: visible;
+    opacity: 1;
+    z-index: 100;
+}
+
+.quick{
+    visibility: visible;
+    opacity: 1;
+}
+
+.size{
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.clothing-button:hover .quick{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.clothing-button:hover .size{
+    visibility: visible;
+    width: 100%;
+    opacity: 1;
+    bottom: 10px;
+    background-color: white;
+    padding: 5px;
+}
+
+.img{
+    visibility: visible;
+    opacity: 1;
+    position: absolute;
+}
+
+.cards:hover .img{
+    visibility: hidden;
+    opacity: 0;
+}
+
+.imagee{
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    /* z-index: 1; */
+}
+
+.cards:hover .imagee{
+    visibility: visible;
+    opacity: 1;
+}
+
+.accordion {
+    position: static;
+}
+.collo{
+    visibility: hidden;
+    opacity: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.bord{
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    padding: 13px 13px;
+    box-sizing: border-box;
+    top:-3px;
+    left:-4px;
+    /* transition: 1; */
+}
+.collo:hover .bord{
+    visibility:visible;
+    opacity: 1;
+}
+
+.cards:hover .color{
+    visibility: hidden;
+    opacity: 0;
+}
+.cards:hover .collo{
+    visibility:visible;
+    opacity: 1;
+}
