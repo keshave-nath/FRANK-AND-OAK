@@ -248,11 +248,14 @@ const searchProduct = async(req, res)=>{
     try{
         // const response = await parentCategory.find({name: {$regex: new RegExp('e')}}); 
         if(req.params.key){        
-        const response = await Product_Model.find({$or: [
+        const response = await Product_Model.find({$or:[
             {name: {$regex : new RegExp(req.params.key)}},
             {description: {$regex : new RegExp(req.params.key)}},
-            {brand:{$regex : new RegExp(req.params.key)}}
-        ]}); 
+            {brand:{$regex : new RegExp(req.params.key)}},
+            // {sizes:{$regex : new RegExp({$in:req.params.key})}},
+            // {colors:{$regex : new RegExp({$in:req.params.key})}}
+        ]})
+        // .populate('sizes');
 
         const file_path = `${req.protocol}://${req.get('host')}/frankandoak-files/products/`;
         
@@ -265,6 +268,16 @@ const searchProduct = async(req, res)=>{
     }
 };
 
+const filterProduct=async(req,res)=>{
+    try{
+            res.status(200).json({message:"Success "})
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({message: 'internal server error'});
+    }
+}
+
 
 module.exports = {
     insertproducts,
@@ -275,5 +288,6 @@ module.exports = {
     fetchProductById,
     updateProduct,
     activeProduct,
-    searchProduct
+    searchProduct,
+    filterProduct
 }

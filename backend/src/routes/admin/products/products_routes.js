@@ -8,7 +8,8 @@ const {
     updateProduct,
     fetchProductById,
     activeProduct,
-    searchProduct
+    searchProduct,
+    filterProduct
 } = require('../../../controller/controller');
 const storage = require('../../../middleware/adminMulter');
 const multer = require('multer');
@@ -40,5 +41,6 @@ products_api.get('/read-product-by-id/:_id',fetchProductById);
 products_api.put('/update-product/:_id',uploads,updateProduct);
 products_api.get('/active-products',activeProduct);
 products_api.get('/search-product/:key',searchProduct);
+products_api.post('/filter-product',filterProduct);
 
 module.exports = products_api;

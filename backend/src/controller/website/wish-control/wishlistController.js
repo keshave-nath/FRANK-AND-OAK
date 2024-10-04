@@ -5,33 +5,38 @@ const Wish = require("../../../models/website/wish/wishlist");
 const addProductToWish = async (req, res) => {
 
     try {
-        if (req.params) {
+        
             // console.log(req.params)
             const data = await Cart.findById(req.params)
-            // console.log(data)
+            console.log(data)
             const {_id ,quantity, ...withoutid} = data._doc
             // console.log(withoutid)
-            const dataToSave = new Wish(withoutid);
+            let dataToSave = new Wish(withoutid);
             // console.log(dataToSave);
 
-            const response = await dataToSave.save();
+            let response = await dataToSave.save();
 
             res.status(200).json({ message: 'success', data: response });
             // console.log(response)
-        }
-        else {
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'internal server' });
+    }
+};
+
+const addProductToWishDirect = async (req, res) => {
+
+    try {
+        
             // console.log(req.body)
-            const dataToSave = new Wish(req.body);
+            let dataToSave = new Wish(req.body);
             // console.log(dataToSave);
 
-            const response = await dataToSave.save();
+             response = await dataToSave.save();
 
             res.status(200).json({ message: 'success', data: response });
             // console.log(response)
-        }
-
-
-
 
     }
     catch (error) {
@@ -75,5 +80,6 @@ const deleteWish = async (req, res) => {
 module.exports = {
     addProductToWish,
     viewWish,
-    deleteWish
+    deleteWish,
+    addProductToWishDirect
 };

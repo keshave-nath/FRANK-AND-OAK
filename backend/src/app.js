@@ -10,6 +10,7 @@ const products_api = require('./routes/admin/products/products_routes');
 const userRouter = require('./routes/website/users/user-routes');
 const cartRouter = require('./routes/website/cart/cart-routes');
 const wishRouter = require('./routes/website/wish/wish-routes');
+const paymentRouter = require('./routes/website/paymentGateway/paymentGate');
 
 const allRoutes = express.Router();
 
@@ -30,8 +31,7 @@ adminRouter.use('/product-details',products_api);
 websiteRouter.use('/user', userRouter);
 websiteRouter.use('/cart',cartRouter);
 websiteRouter.use('/wishlist' , wishRouter);
-
-
+websiteRouter.use('/payment', paymentRouter);
 
 
 allRoutes.use('/franandoak-services', websiteRouter);

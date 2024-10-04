@@ -12,7 +12,7 @@ const addProductToCart = async (req, res) =>{
         const response = await dataToSave.save();
 
         res.status(200).json({message: 'success', data: response});
-        console.log(response)
+        console.log('Add',response)
 
 
     }

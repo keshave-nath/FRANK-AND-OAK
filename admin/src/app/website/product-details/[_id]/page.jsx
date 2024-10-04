@@ -26,7 +26,7 @@ const page = () => {
     const [checkedSizes, setCheckedSizes] = useState([]);
     const [checkedColors, setCheckColors] = useState([]);
     const [Images,setImages] = useState([]);
-    let {user,cartdata,setcartdata,wishh,setwish} = useContext(ContextAPI);
+    let {user,cartdata,setcartdata,wishh,setwish,wishData} = useContext(ContextAPI);
     
     let nav = useRouter();
     
@@ -100,19 +100,19 @@ const page = () => {
     const handelWishlist=async()=>{
         
         try{
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/api/franandoak-services/wishlist/wish-product`,cartdata);
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER}/api/franandoak-services/wishlist/wishlist-product`,cartdata);
         if (response.status !== 200) return (
             swal({
             title: "Something Went Wrong !!",
             text: "Please Try After Sometime !!",
             icon: "warning"
         }))
-        if(wishh===true)
+        if(wishData.map((v)=>v.proo._id==products._id))
         {
-            setwish(false);
+            setwish(true);
         }
         else{
-            setwish(true);
+            setwish(false);
         }
         swal({
             title: "Success !!",
@@ -139,6 +139,7 @@ const page = () => {
     // console.log(wishData)
     // console.log(file , products,checkedSizes,checkedColors,Images)
     // console.log(products.images)
+    // console.log(wishData,products)
 
     return (
         <div>
@@ -174,7 +175,11 @@ const page = () => {
                             <p>{products.name}</p>
                         </div>
                         <div className='fw-bold'>
-                            <p>&#8377; {products.price} / <span className='text-decoration-line-through'>{products.mrp}  </span></p>
+                            <p>&#8377; {products.price} / <span className='text-decoration-line-through'>{products.mrp}  </span>
+                            <span className='text-danger ms-2'> {
+                                Math.floor((products.price/products.mrp)*100)
+                                }%</span>
+                            </p>
                         </div>
                         <div>
                             <p>4 interest-free payments. Available for orders above $35. <b>Klarna</b>. </p>
@@ -396,9 +401,9 @@ function HandelColorsbutton(v){
     const [selcol,setselcol] = useState(true);
 
     const handelSelectColor = (e)=>{
-        const color=e
-        const userr = user._id
-        const proo = v.p._id
+        const color=e;
+        const userr = user._id;
+        const proo = v.p._id;
         // setcartdata({...cartdata,});
         
         setcartdata({...cartdata,color,userr,proo})

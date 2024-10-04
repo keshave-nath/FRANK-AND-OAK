@@ -44,7 +44,8 @@ const {
      updateProduct,
      fetchProductById,
      activeProduct,
-     searchProduct
+     searchProduct,
+     filterProduct
 } = require('./admin-panel/product/product_controller');
 
 // Product Categories
@@ -73,14 +74,17 @@ const {
     activeSizesAvailable
  } = require('./admin-panel/size/size-controller');
 const { addProductToCart, viewCart, deleteCart } = require('./website/cart-control/cart-controller');
+const { buySomething } = require('./website/paymetGateway/paymentGate');
 
 //  website 
 
 const {
      registerUser, 
-     loginUser
+     loginUser,
+     genrateOtpUser,
+     updatePassword
 } = require('./website/users/user-controller');
-const { addProductToWish, viewWish, deleteWish } = require('./website/wish-control/wishlistController');
+const { addProductToWish, viewWish, deleteWish, addProductToWishDirect } = require('./website/wish-control/wishlistController');
 
 
 module.exports = {
@@ -135,15 +139,21 @@ module.exports = {
     fetchProductById,
     activeProduct,
     searchProduct,
+    filterProduct,
 
     registerUser,
     loginUser,
+    genrateOtpUser,
+    updatePassword,
 
     addProductToCart,
     viewCart,
     deleteCart,
 
     addProductToWish,
+    addProductToWishDirect,
     viewWish,
-    deleteWish
+    deleteWish,
+
+    buySomething
 };

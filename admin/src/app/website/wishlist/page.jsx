@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../common_components/Header'
 import Footer from '../common_components/Footer'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -11,11 +11,12 @@ import { IoHeartOutline } from 'react-icons/io5'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
+import { ContextAPI } from '@/app/context/Maincontext'
 
 const page = () => {
   const [file, setfile] = useState()
-  const [viewwish, setviewWish] = useState([]);
-  // let {user} = useContext(ContextAPI);
+  // const [viewwish, setviewWish] = useState([]);
+  let {wishData,setWishData} = useContext(ContextAPI);
 
   // let {_id} = user;
   let cookieData = Cookies.get('FRANKANDOAK')
@@ -33,8 +34,8 @@ const page = () => {
           icon: 'warning'
         })
       }
-      console.log(response)
-      setviewWish(response.data.data);
+      // console.log(response)
+      setWishData(response.data.data);
       setfile(response.data.file_path);
       // setval(response.data.data.quantity)
 
@@ -85,6 +86,7 @@ const page = () => {
   useEffect(() => {
     handelWishData()
   }, [])
+  // console.log("WishData",wishData)
   
   return (
     <div>
@@ -108,7 +110,7 @@ const page = () => {
             <div className='grid-wishlist'>
 
               {
-                viewwish.map((v) => (
+                wishData.map((v) => (
                   <Link href={`/website/product-details/${v.proo._id}`} style={{
                     'color': 'black', 'textDecoration': 'none'
                     }}>
@@ -116,7 +118,7 @@ const page = () => {
                     <img src={file+v.proo.thumbnail} className="card-img-top cursor-pointer" width={250} height={300} alt="" />
                     <img src={file+v.proo.thumbnail_animation} className="card-img-bottom cursor-pointer" width={250} height={300} alt="" />
                     <div className='btn-position'>Quick Add</div>
-                    <div className='wishlist-position'>-66%</div>
+                    <div className='wishlist-position'>{Math.floor((v.proo.price/v.proo.mrp)*100)}%</div>
                     <div className="card-body p-0 py-2">
                       <div className="card-title fw-bold d-flex justify-content-between">
                         <div className='fs-12'>{v.proo.name}</div>

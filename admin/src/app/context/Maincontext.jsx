@@ -7,12 +7,16 @@ const Maincontext = ({children}) => {
     const  [user,setUser]=useState({})
     const [viewuser,setView]=useState(false)
     const [cartdata,setcartdata]=useState({});
-    const [wishData,setWishData]=useState({});
+    const [wishData,setWishData]=useState([]);
     const [wishh,setwish]=useState(false);
+    const [SizeFilter, setSizeFilter]=useState([]);
+    const [ColorFilter, setColorFilter]=useState([]);
+    const [FilterData,setFilterData]=useState({});
+    // const [val, setval]=useState(1);
 
   return (
     <div>
-        <ContextAPI.Provider value={{adminData,setAdminData,user,setUser,viewuser,setView,cartdata,setcartdata,wishData,setWishData,wishh,setwish}}>
+        <ContextAPI.Provider value={{adminData,setAdminData,user,setUser,viewuser,setView,cartdata,setcartdata,wishData,setWishData,wishh,setwish,SizeFilter, setSizeFilter,ColorFilter, setColorFilter,FilterData,setFilterData}}>
             {children}
         </ContextAPI.Provider>
     </div>

@@ -5,6 +5,7 @@ import Footer from '../common_components/Footer'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
 import { Col, Row } from 'react-bootstrap'
+import Link from 'next/link'
 
 const page = () => {
     const [searchdata,setsearchdata]=useState([]);
@@ -34,7 +35,7 @@ const page = () => {
             })
         }
     }
-    console.log(searchdata)
+    // console.log(searchdata)
 
   return (
     <div>
@@ -68,11 +69,15 @@ const page = () => {
                         }
                     </div>
                 </Col>
-                <Col xl={10}>
+                <Col xl={10} className='d-flex '>
                     {
                         searchdata.map((v)=>(
-                            <div style={{
-                                width:'250px'
+                            <Link href={`/website/product-details/${v._id}`} 
+                            style={{
+                                'color': 'black', 'textDecoration': 'none'}}>
+                                <div style={{
+                                width:'250px',
+                                marginRight:'20px'
                             }}>
                                 <div>
                                     <img src={file+v.thumbnail}  width='100%' height={300}    alt="" />
@@ -81,7 +86,7 @@ const page = () => {
                                     <div className='my-2 fw-bold'>{v.name}</div>
                                     <div className='my-2'>Price : &#8377;<span className='text-danger' > {v.price} </span></div>
                                 </div>
-                            </div>
+                            </div></Link>
                         ))
                     }
                 </Col>

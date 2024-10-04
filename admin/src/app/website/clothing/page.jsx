@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import Header from '../common_components/Header'
 import { Accordion, Col, Container, Row } from 'react-bootstrap'
 // import Footer from '../common_components/Footer'
@@ -12,6 +12,7 @@ import Header from '../common_components/Header'
 import Footer from '../common_components/Footer'
 import axios from 'axios'
 import swal from 'sweetalert'
+import { ContextAPI } from '@/app/context/Maincontext'
 
 const page = () => {
 
@@ -21,7 +22,10 @@ const page = () => {
     const [size, setSize] = useState([]);
     const [color, setColor] = useState([]);
     const [file, setFile] = useState();
-
+    const [ProductFilter, setProductFilter] = useState([]);
+   const {FilterData,setFilterData,SizeFilter,setSizeFilter,ColorFilter, setColorFilter}=useContext(ContextAPI);
+   
+   
     // const handelParentcategory = async () => {
     //     try {
     //         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER}/api/admin-panel/parentCategory/active-parent-categories`)
@@ -44,6 +48,7 @@ const page = () => {
     //     }
 
     // }
+   
 
     const handelProductCategories = async () => {
         try {
@@ -138,6 +143,23 @@ const page = () => {
         }
     }
 
+    const handelValueProduct = (e) => {
+        // console.log("Product",e);
+        if (e.target.checked) {
+            setProductFilter([...ProductFilter, e.target.value]);
+        }
+        else {
+            setProductFilter(ProductFilter.filter(item => item != e.target.value))
+        }   
+        setFilterData({...FilterData,product:ProductFilter})
+    }
+
+    const data={
+        product:ProductFilter,
+        size:SizeFilter,
+        color:ColorFilter
+    }
+
     useEffect(() => {
         handelProductsApi();
         handelProductCategories();
@@ -145,8 +167,9 @@ const page = () => {
         handelColors();
     }, [])
 
-    console.log('active',activeData,products, size, color)
-
+    // console.log('active',activeData,products, size, color)
+    // console.log(FilterData,ProductFilter)
+    console.log("Data",data)
     return (
         <div>
             <Header />
@@ -168,7 +191,7 @@ const page = () => {
                                     <ul className='p-0 m-0  fw-500'>
                                         {
                                             products.map((v) => (
-                                                <li className='cursor-pointer '><input type='checkbox' /> {v.name} </li>
+                                                <li className='cursor-pointer '><input type='checkbox' value={v.name} onClick={handelValueProduct} checked={ProductFilter.includes(v.name)} /> {v.name} </li>
                                             ))
                                         }
                                         {/* <li className='cursor-pointer'><input type='checkbox' /> Sweaters</li>
@@ -190,7 +213,7 @@ const page = () => {
                                     <ul className='p-0 m-0  fw-500 d-flex flex-wrap gap-4'>
                                         {
                                             size.map((v) => (
-                                                <li className='cursor-pointer'><button className='border border-1 px-2'>{v.name}</button></li>
+                                                <HandelSizeLi v={v} />
                                             ))
                                         }
                                         {/* <li className='cursor-pointer'><span className='border border-1 p-2'>XS</span></li>
@@ -209,11 +232,7 @@ const page = () => {
                                     <ul className='p-0 m-0  fw-500'>
                                         {
                                             color.map((v) => (
-                                                <li className='cursor-pointer'><button className='rounded-circle border border-1 border-black py-2 px-2'
-                                                    style={{
-                                                        backgroundColor: `${v.color_code}`
-                                                    }}
-                                                ></button>&nbsp;&nbsp;{v.color}</li>
+                                               <HandelColorLi v={v}/>
                                             ))
                                         }
                                         {/* <li className='cursor-pointer'><span className='rounded-circle border border-1 border-black bg-black p-1 px-2'></span> &nbsp;&nbsp;&nbsp;Black</li>
@@ -287,19 +306,19 @@ const page = () => {
                                     <Link href={`/website/product-details/${v._id}`} style={{
                                         'color': 'black', 'textDecoration': 'none'
                                     }}>
-                                        <Col className='mx-2 cursor-pointer p-0 ' style={{ 'width': '250px' }}>
+                                        <Col className='mx-2 cursor-pointer p-0 ' style={{ 'width': '250px' ,'marginBottom':'150px'}}>
                                             <div className='cards z-index-1' style={{ 'width': '250px', 'position': 'relative' }}>
                                                 <div style={{
-                                                    height:'350px'
+                                                    height: '350px'
                                                 }}>
-                                                <img src={file + v.thumbnail} width={250} height={350} className='img' />
-                                                <img src={file+v.thumbnail_animation} width={250} height={350} className='imagee' alt="" />
+                                                    <img src={file + v.thumbnail} width={250} height={350} className='img' />
+                                                    <img src={file + v.thumbnail_animation} width={250} height={350} className='imagee' alt="" />
                                                 </div>
                                                 <button className='border-0 clothing-button'>
                                                     <div className='quick'>Quick Add</div>
                                                     <div className='size row row-cols-4'>
                                                         {
-                                                            v.sizes.map((v)=>(
+                                                            v.sizes.map((v) => (
                                                                 <button className='border-0 ms-2 mt-2'>
                                                                     {v.name}
                                                                 </button>
@@ -307,20 +326,25 @@ const page = () => {
                                                         }
                                                     </div>
                                                 </button>
-                                                <div className='d-flex position-absolute'
-                                                style={{
-                                                    top:'350px'
-                                                }}
+                                                <div className='d-flex position-absolute w-100'
+                                                    style={{
+                                                        top: '350px'
+                                                    }}
                                                 >
-                                                    <div>
-                                                        <p className='fs-12 fw-bold my-3'>{v.short_discription}</p>
+                                                    <div className='w-100'>
+                                                        <div className='d-flex justify-content-between w-100 '>
+                                                            <p className='fs-12 fw-bold my-3'>{v.short_discription}</p>
+                                                            <div>
+                                                                <IoHeartOutline className='my-3' />
+                                                            </div>
+                                                        </div>
                                                         <p className='fs-12 fw-bold'>&#8377; {v.price}</p>
                                                         {
                                                             v.colors.map((v) => (
                                                                 <button className=' ms-2 collo border-0 rounded-circle'
                                                                     style={{
-                                                                       padding:'10px 10px',
-                                                                        backgroundColor:`${v.color_code}`
+                                                                        padding: '10px 10px',
+                                                                        backgroundColor: `${v.color_code}`
                                                                     }}
                                                                 >
                                                                     <span className='border bord  border-dark rounded-circle'></span>
@@ -329,9 +353,7 @@ const page = () => {
                                                         }
                                                         <p className='fs-12 position-absolute top-50 color fw-bold my-3'>{v.colors.length} colour</p>
                                                     </div>
-                                                    <div>
-                                                        <IoHeartOutline className='my-3' />
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </Col>
@@ -350,3 +372,59 @@ const page = () => {
 }
 
 export default page
+
+function HandelSizeLi({ v }) {
+    const {SizeFilter, setSizeFilter,FilterData,setFilterData} = useContext(ContextAPI);
+    const [Sizesel, setSizesel] = useState(false);
+    const handelValueProductSize = (e) => {
+        // console.log("Size",e.target.value)
+        if(Sizesel === false) {
+            setSizeFilter([...SizeFilter,e.target.value]);
+            if(SizeFilter.map(item => item == e.target.value)) (
+                setSizesel(true)
+            )
+        }
+        if(Sizesel===true){
+            setSizesel(false);
+            setSizeFilter(SizeFilter.filter(item => item != e.target.value))
+        }
+        setFilterData({...FilterData,size:SizeFilter})
+        
+    }
+    // console.log(FilterData)
+    return (
+        <li className='cursor-pointer'><button value={v.name} className={`${Sizesel === true ? 'border border-black border-2 bg-dark text-white' : 'border border-1'} px-2`}
+            onClick={handelValueProductSize}
+        >{v.name}</button></li>
+    )
+}
+
+function HandelColorLi({ v }) {
+    const [Colorsel, setColorsel] = useState(false);
+    const {ColorFilter, setColorFilter,FilterData,setFilterData} = useContext(ContextAPI);
+    const handelValueProductColor = (e) => {
+        // console.log("Size",e.target.value)
+        if(Colorsel === false) {
+            setColorFilter([...ColorFilter,e.target.value]);
+            if(ColorFilter.map(item => item == e.target.value)) (
+                setColorsel(true)
+            )
+            setFilterData({...FilterData,color:ColorFilter})
+        }
+        if(Colorsel===true){
+            setColorsel(false);
+            setColorFilter(ColorFilter.filter(item => item != e.target.value))
+            setFilterData({...FilterData,color:ColorFilter})
+        }
+        
+    }
+    // console.log(FilterData)
+    return (
+        <li className='cursor-pointer'><button value={v.color} className={`rounded-circle ${Colorsel==true?'border border-1 border-black':'border border-0'} py-2 px-2`}
+        style={{
+            backgroundColor: `${v.color_code}`
+        }}
+        onClick={handelValueProductColor}
+         ></button>&nbsp;&nbsp;{v.color}</li>
+    )
+}
