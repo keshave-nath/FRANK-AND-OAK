@@ -1,0 +1,102 @@
+.grid {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+    margin: 50px 0px;
+    grid-template-columns: 215px 200px 200px 200px 325px;
+}
+
+.fw-500 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 34px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.input-foot {
+    max-width: 100%;
+    padding: 10px;
+    background-color: inherit;
+    margin-bottom: 20px;
+    color: white;
+    border: 1px solid #ccc;
+    outline: white;
+}
+
+.btn-foot {
+    padding: 10px;
+    max-width: 100%;
+    color: white;
+    transition: 0.5s;
+    background-color: inherit;
+    margin: 10px 0px;
+    border: 2px solid white;
+}
+
+.btn-foot:hover {
+    box-shadow: 1px 3px 0px 3px #ccc;
+}
+
+.para-foot{
+    max-width: 80%;
+}
+
+.max-width{
+    max-width: 100%;
+}
+
+@media only screen and (min-width:200px) and (max-width:1023px) {
+    .grid {
+        display: none;
+    }
+
+    .font-ress {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (min-width:1024px) and (max-width:2500px) {
+    .grid2 {
+        display: none;
+    }
+}
+
+.grid2 {
+    width: 100%;
+    margin: 30px 0px;
+    padding: 20px;
+}
+
+footer .accordion {
+    background-color: black;
+}
+
+footer .accordion-button:focus {
+    box-shadow: none;
+}
+
+footer .accordion-button:not(.collaspe) {
+    box-shadow: none;
+}
+
+footer .accordion-button {
+    background-color: black !important;
+    color: white !important;
+}
+
+footer .accordion-body {
+    background-color: black !important;
+    color: white !important;
+}
+
+footer .accordion-button:not(.collaspe)::after {
+    width: 0px;
+    content: "+" !important;
+}
+
+.fs-10{
+    font-size: 9px;
+}
